@@ -1,0 +1,11 @@
+body{
+    background-color: #bbbbbb;
+}
+
+#sberkanoid{
+    position: fixed;
+    z-index: -1;
+    width: 600px;
+    height: 600px;
+    background-color: #fff;
+}
