@@ -1,5 +1,5 @@
 export default class Ball {
-    constructor(x, y, r, s, c){
+    constructor(x, y, r, c, s = null){
         this.onAir = false;
         this.x = x;
         this.y = y;
@@ -19,7 +19,11 @@ export default class Ball {
         this.canvasContext = c;
         console.log("ball created");
     }
-
+    attachStick(s){
+        this.stick = s
+        this.x = this.stick.x;
+        this.y = this.stick.y-20;
+    }
     draw(){
         this.canvasContext.beginPath()
         if(this.onAir == false){
@@ -55,6 +59,18 @@ export default class Ball {
         this.v = {
             x: Math.cos(this.a)*this.accel, 
             y: -Math.sin(this.a)*this.accel
+        }
+    }
+    bounse(s){
+        if(s == "top" || s == "bottom"){
+            this.v.y *= -1;
+            this.x += this.v.x;
+            this.y += this.v.y;
+        }
+        if(s == "left" || s == "right"){
+            this.v.x *= -1;
+            // this.x += this.v.x;
+            // this.y += this.v.y;
         }
     }
 }

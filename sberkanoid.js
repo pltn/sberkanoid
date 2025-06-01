@@ -18,16 +18,15 @@ import GameBoard from './modules/gameboard.js';
 // Событие столкновения
 // side может принимать значения: top | bottom | left | right
 const Collision = new CustomEvent('collision', {
-    message: "Столкновение",
-    side: "top"
+    side: "top",
+    obj: null,
+    bubbles: true
 })
-const g = new GameBoard(ctx)
-const s = new Stick(Sberkanoid.width/2, Sberkanoid.height-20, 100, ctx);
-const b = new Ball(s.x, s.y-20, 20, s, ctx);
 
-
-
-
+const b = new Ball(0, 0, 20, ctx);
+const s = new Stick(Sberkanoid.width/2, Sberkanoid.height-20, 100, ctx, b, Collision);
+b.attachStick(s)
+const g = new GameBoard(ctx, b, Collision)
 
 // class Brick {
 
@@ -45,16 +44,22 @@ function animate(){
     // console.log("go")
     requestAnimationFrame(animate)
     ctx.clearRect(0,0,Sberkanoid.width, Sberkanoid.height)
+    g.checkCollision()
+    s.checkCollision()
     g.draw();
     s.draw();
     b.draw();
 }
 // По движению мыши перерисовываем положение ракетки
 Sberkanoid.addEventListener('mousemove', (e) => {
-    console.log("mouse: ", e.clientX)
+    // console.log("mouse: ", e.clientX)
     s.updatePostion(e.clientX)
 })
 Sberkanoid.addEventListener('click', (e) => {
     b.fire();
+})
+Sberkanoid.addEventListener('collision', (e) =>{
+    console.log(e.obj, e.side, "collision!")
+    b.bounse(e.side)
 })
 animate()
