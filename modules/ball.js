@@ -12,6 +12,8 @@ export default class Ball {
             x: 0, 
             y: 0
         }
+        // Ускорение
+        this.accel = 7;
         // Палка
         this.stick = s;
         this.canvasContext = c;
@@ -51,8 +53,8 @@ export default class Ball {
             this.a = half_pi - a
         }
         this.v = {
-            x: Math.cos(this.a)*4, 
-            y: -Math.sin(this.a)*4
+            x: Math.cos(this.a)*this.accel, 
+            y: -Math.sin(this.a)*this.accel
         }
     }
 }
