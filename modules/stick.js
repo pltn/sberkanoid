@@ -18,6 +18,8 @@ export default class Stick {
         this.canvasContext.closePath()
     }
     updatePostion(x){
-        this.x = x
+        if((x-this.w/2 > 10) && (x+this.w/2 < this.canvasContext.canvas.width-10)){
+            this.x = x
+        }   
     }
 }
