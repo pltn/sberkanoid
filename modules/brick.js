@@ -14,19 +14,20 @@ export default class Brick{
     draw(){
         this.canvasContext.beginPath();
         this.canvasContext.rect(this.x, this.y, this.w, this.h)
-        this.canvasContext.strokeStyle = "#888";
+        this.canvasContext.strokeStyle = "#040";
         this.canvasContext.stroke();
-        this.canvasContext.fillStyle = "#ddd";
+        this.canvasContext.fillStyle = "#91FF00";
         this.canvasContext.fill()
         this.canvasContext.closePath();
     }
     checkCollision(){
         // console.log(this.ball.y-this.ball.r)
-        if((this.ball.y-this.ball.r <= this.y+this.h)&&(this.ball.x >= this.x && this.ball.x <= this.x+this.w)){
+        if((this.ball.y-this.ball.r <= this.y+this.h && this.ball.y+this.ball.r > this.y)&&(this.ball.x >= this.x && this.ball.x <= this.x+this.w)){
             this.coll.side = "bottom";
             this.coll.obj = "brick";
             this.coll.addr = this.addr;
             this.canvasContext.canvas.dispatchEvent(this.coll)
+            return;
         }
     }
 }

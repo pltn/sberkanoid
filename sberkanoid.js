@@ -4,11 +4,12 @@
 
 const Sberkanoid = document.getElementById('sberkanoid')
 const ctx = Sberkanoid.getContext("2d")
+ctx.fillStyle = "#191919"
+ctx.fillRect(0, 0, ctx.width, ctx.height);
 Sberkanoid.width = innerWidth;
 Sberkanoid.height = innerHeight;
 
 
-import lvl_01  from './modules/levels/level_01.js'
 import Stick from './modules/stick.js'
 import Ball from './modules/ball.js'
 import GameBoard from './modules/gameboard.js';
@@ -31,6 +32,8 @@ function animate(){
     // console.log("go")
     requestAnimationFrame(animate)
     ctx.clearRect(0,0,Sberkanoid.width, Sberkanoid.height)
+    ctx.fillStyle = "#191919"
+    ctx.fillRect(0, 0, ctx.width, ctx.height);
     g.checkCollision()
     s.checkCollision()
     g.draw();
@@ -46,16 +49,31 @@ Sberkanoid.addEventListener('click', (e) => {
     b.fire();
 })
 Sberkanoid.addEventListener('collision', (e) =>{
-    if(e.obj = 'brick'){
+    if(e.obj == 'dead'){
+        console.log("dead")
+        b.v = {x: 0, y: 0};
+        s.x = Sberkanoid.width/2;
+        b.attachStick(s)
+        b.onAir = false
+        alert("you're dead")
+        return;
+    }
+    if(e.obj == 'brick'){
         // g.mapLevel[e.arrd.r][e.addr.b] = '_'
         if(e.addr != null && e.obj == 'brick'){
             console.log(g.mapLevel[e.addr.r][e.addr.b])
-            g.mapLevel[e.addr.r][e.addr.b] = '_'
-            
+            g.mapLevel[e.addr.r][e.addr.b] = '_'    
         }
         
     }
     console.log(e.obj, e.side, "collision!")
     b.bounse(e.side)
+})
+Sberkanoid.addEventListener('dead', (e) => {
+    console.log("dead")
+    b.v = {x: 0, y: 0};
+    s.x = Sberkanoid.width/2;
+    b.attachStick(s)
+    alert("you're dead")
 })
 animate()

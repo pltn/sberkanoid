@@ -17,8 +17,10 @@ export default class GameBoard {
     draw(){
         this.canvasContext.beginPath()
         this.canvasContext.rect(10, 100, this.w-20, this.h);
-        this.canvasContext.strokeStyle = "red"
+        this.canvasContext.strokeStyle = "#bbb"
         this.canvasContext.stroke();
+        this.canvasContext.fillStyle = "#444";
+        this.canvasContext.fill();
         this.canvasContext.closePath();
         this.drawLevel()
     }
@@ -42,9 +44,15 @@ export default class GameBoard {
             this.coll.addr = null;
             this.canvasContext.canvas.dispatchEvent(this.coll)
         }
+        if(this.ball.y > 800){
+            this.coll.side = null;
+            this.coll.obj = "dead";
+            this.coll.addr = null;
+            this.canvasContext.canvas.dispatchEvent(this.coll)
+        }
     }
     checkGameover(){
-
+        
     }
     drawLevel(){
         this.mapLevel.forEach((row, r_idx) =>{

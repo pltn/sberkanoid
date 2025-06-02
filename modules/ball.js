@@ -13,7 +13,7 @@ export default class Ball {
             y: 0
         }
         // Ускорение
-        this.accel = 7;
+        this.accel = 5;
         // Палка
         this.stick = s;
         this.canvasContext = c;
@@ -39,10 +39,12 @@ export default class Ball {
         
     }
     fire(){
-        this.x = this.stick.x;
-        this.y = this.stick.y - this.r;
-        this.getStartAngle()
-        this.onAir = true;
+        if(this.onAir == false){
+            this.x = this.stick.x;
+            this.y = this.stick.y - this.r;
+            this.getStartAngle()
+            this.onAir = true;
+        }
     }
     getStartAngle(){
         const half_pi = 1.57;
