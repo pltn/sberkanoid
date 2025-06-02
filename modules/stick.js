@@ -28,7 +28,8 @@ export default class Stick {
         console.log()
         if((this.ball.y+this.ball.r-1 >= this.y)&&(this.ball.x >= this.x-this.w/2 && this.ball.x <= this.x+this.w/2)){
             this.coll.side = "bottom";
-            this.coll.obj = "stick"
+            this.coll.obj = "stick";
+            this.coll.addr = null;
             this.canvasContext.canvas.dispatchEvent(this.coll)
         }
     }
